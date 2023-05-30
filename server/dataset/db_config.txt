@@ -1,0 +1,12 @@
+
+copy public.users_user (id, last_login, is_superuser, is_staff, is_active, date_joined, first_name, last_name, email, password, image, phone, date_of_birth, gender, city, address)
+FROM 'E:/uv_project/floric/server/dataset/users_user.csv' CSV HEADER QUOTE '"' ESCAPE '''';
+
+copy public.products_category (id, name, cat_img) FROM 'E:/uv_project/floric/server/dataset/products_category.csv' CSV HEADER QUOTE '"' ESCAPE '''';
+
+copy public.products_product (id, name, description, weight, quantity, color, brand, model, price, size, posted_time, product_img1, product_img2, product_img3, product_img4, author_id, product_category_id)
+FROM 'E:/uv_project/floric/server/dataset//products_product.csv' CSV HEADER QUOTE '"' ESCAPE '''';
+
+SELECT setval('products_product_id_seq', (SELECT MAX(id) from "products_product"));
+SELECT setval('users_user_id_seq', (SELECT MAX(id) from "users_user"));
+SELECT setval('products_category_id_seq', (SELECT MAX(id) from "products_category"));

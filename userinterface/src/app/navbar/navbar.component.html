@@ -1,0 +1,110 @@
+<div class="stc">
+  <c-header class="header">
+    <c-container fluid>
+      <c-header-brand [routerLink]="['/']"><img src="../../assets/logo.jpg" alt="brand" class="brand_img"> <span
+        class="white">Floric</span></c-header-brand>
+
+      <c-header-nav class="ms-auto">
+        <c-nav-item (click)="searchopen()" class="minisearchopen">
+          <button cButton type="submit" color="light" variant="ghost"
+                  cTooltip="search" cTooltipPlacement="bottom" class="me-1">
+            <fa-icon [icon]="searchIcon"></fa-icon>
+          </button>
+        </c-nav-item>
+
+        <c-nav-item>
+          <span class="searchbox">
+              <div class="container-fluid">
+                <form class="d-flex" [formGroup]="searchForm" (ngSubmit)="onSearch(sr.value)">
+                  <input class="form-control  me-2" formControlName="search" placeholder="Search" aria-label="Search" #sr>
+
+                    <button cButton type="button" color="light" variant="ghost" cTooltip="search"
+                            cTooltipPlacement="bottom"
+                            class="me-1"
+                            (click)="onSearch(sr.value)"> <fa-icon [icon]="searchIcon"></fa-icon>
+                    </button>
+                </form>
+              </div>
+          </span>
+        </c-nav-item>
+        <c-nav-item>
+          <button cButton color="light" variant="ghost" [routerLink]="['/order/cart',]" cTooltip="shoping cart"
+                  cTooltipPlacement="bottom"
+                  class="me-1">
+            <fa-icon [icon]="cart"></fa-icon>
+
+          </button>
+        </c-nav-item>
+        <c-nav-item>
+          <button cButton color="light" variant="ghost" [routerLink]="['/auth','account']" cTooltip="your account"
+                  cTooltipPlacement="bottom"
+                  class="me-1">
+            <fa-icon [icon]="faUser"></fa-icon>
+
+
+          </button>
+        </c-nav-item>
+
+        <c-nav-item *ngIf="authStatus">
+          <button cButton color="light" variant="ghost" (click)="logOUt()" cTooltip="your account"
+                  cTooltipPlacement="bottom"
+                  class="me-1">
+            <fa-icon [icon]="faLogount"></fa-icon>
+          </button>
+        </c-nav-item>
+
+        <c-nav-item>
+          <button cButton cOffcanvasToggle="OffcanvasStart" color="light" variant="ghost" cTooltip="menu"
+                  cTooltipPlacement="bottom"
+                  class="me-1">
+            <c-icon name="cil-menu" class="white" size="lg"></c-icon>
+
+          </button>
+        </c-nav-item>
+
+      </c-header-nav>
+    </c-container>
+
+
+  </c-header>
+  <div class="searchboxmini" [style.display]=minisearch>
+    <nav class="navbar navbar-light bg-light">
+      <form class="container-fluid">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="search" aria-describedby="basic-addon1" #search>
+          <span class="input-group-text" id="basic-addon1">
+
+              <button cButton type="button" color="dark" variant="ghost" cTooltip="search" cTooltipPlacement="bottom"
+                      class="me-1"
+                      (click)="onSearch(search.value)"
+              >
+           <fa-icon [icon]="searchIcon"></fa-icon>
+              </button>
+
+
+            </span>
+        </div>
+      </form>
+    </nav>
+  </div>
+</div>
+
+
+<c-offcanvas class=""  placement="end" id="OffcanvasStart" >
+  <c-offcanvas-header class="mt-3">
+    <h5 cOffcanvasTitle cOffcanvasToggle="OffcanvasStart"> Floric</h5>
+    <button cButtonClose class="text-reset" cOffcanvasToggle="OffcanvasStart"
+            aria-label="Close"></button>
+  </c-offcanvas-header>
+
+
+  <c-offcanvas-body>
+    <c-nav class="flex-column" *ngFor="let item of navItems">
+      <c-nav-item cOffcanvasToggle="OffcanvasStart">
+        <button cButton color="dark" class="wf text-start" variant="ghost" (click)="loadData(item.id)">
+          {{item.name}}
+        </button>
+      </c-nav-item>
+    </c-nav>
+  </c-offcanvas-body>
+</c-offcanvas>

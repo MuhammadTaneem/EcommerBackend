@@ -1,0 +1,268 @@
+<!--<c-container [fluid]="true">-->
+<c-row class="justify-content-center mb-5">
+  <c-col class="mg50">
+    <c-card class="p-0">
+      <form [formGroup]="ProductForm" validated (ngSubmit)="onSubmit()" cForm class="mt-5">
+
+        <c-row>
+          <c-col [md]="6">
+            <div class="mb-3">
+              <label cLabel for="name">Product name</label>
+              <input cFormControl
+
+                     id="name"
+                     type="text"
+                     formControlName="name"
+                     name="name"
+                     placeholder="Product name"
+                     [valid]="false"
+                     value=""
+                     class="brd"
+              />
+              <small
+                *ngIf='ProductForm.get("name")!.hasError("required") && ProductForm.get("name")!.touched'
+                class='text-danger'>Product name is required</small>
+            </div>
+            <div class="mb-3">
+              <label cLabel for="model">model</label>
+              <input cFormControl
+
+                     id="model"
+                     type="text"
+                     formControlName="model"
+                     name="model"
+                     placeholder="Product model"
+                     [valid]="false"
+                     value=""
+                     class="brd"
+              />
+              <small
+                *ngIf='ProductForm.get("model")!.hasError("required") && ProductForm.get("model")!.touched'
+                class='text-danger'>Product model is required</small>
+            </div>
+            <div class="mb-3">
+              <label cLabel for="brand">Brand</label>
+              <input cFormControl
+
+                     id="brand"
+                     type="text"
+                     formControlName="brand"
+                     name="name"
+                     placeholder="Product brand"
+                     [valid]="false"
+                     value=""
+                     class="brd"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label cLabel for="product_category">Product Category</label>
+              <select aria-label="product_category"
+                      cSelect cFormControl
+                      id="product_category"
+                      formControlName="product_category"
+                      name="product_category"
+                      class="brd"
+              >
+                <option *ngFor="let item of cat_list" [value]="item.id">
+                  {{item.name}}</option>
+              </select>
+
+              <small
+                *ngIf='ProductForm.get("product_category")!.hasError("required") && ProductForm.get("product_category")!.touched'
+                class='text-danger'>Product Category is required</small>
+            </div>
+
+
+            <div class="mb-3">
+              <label cLabel for="description">Products Description</label>
+              <textarea cFormControl
+
+                        id="description"
+                        type="text"
+                        formControlName="description"
+                        name="description"
+                        placeholder="Product description"
+                        [valid]="false"
+                        value=""
+                        class="brd"
+                        rows="5"
+              ></textarea>
+              <small
+                *ngIf='ProductForm.get("description")!.hasError("required") && ProductForm.get("description")!.touched'
+                class='text-danger'>Products description is required</small>
+            </div>
+
+
+          </c-col>
+
+
+          <c-col [md]="6">
+
+            <div class="mb-3">
+              <label cLabel for="quantity">Products quantity</label>
+              <input cFormControl
+
+                     id="quantity"
+                     type="text"
+                     formControlName="quantity"
+                     name="quantity"
+                     placeholder="Product quantity"
+                     [valid]="false"
+                     value=""
+                     class="brd"
+              />
+              <small
+                *ngIf='ProductForm.get("quantity")!.hasError("required") && ProductForm.get("quantity")!.touched'
+                class='text-danger'>Products quantity is required</small>
+            </div>
+
+            <div class="mb-3">
+              <label cLabel for="weight">Weight</label>
+              <input cFormControl
+
+                     id="weight"
+                     type="text"
+                     formControlName="weight"
+                     name="weight"
+                     placeholder="Product weight"
+                     [valid]="false"
+                     value=""
+                     class="brd"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label cLabel for="color">Color</label>
+              <input cFormControl
+
+                     id="color"
+                     type="text"
+                     formControlName="color"
+                     name="color"
+                     placeholder="Product color"
+                     [valid]="false"
+                     value=""
+                     class="brd"
+              />
+
+            </div>
+
+
+            <div class="mb-3">
+              <label cLabel for="size">Size</label>
+              <input cFormControl
+
+                     id="size"
+                     type="text"
+                     formControlName="size"
+                     name="size"
+                     placeholder="Product size"
+                     [valid]="false"
+                     value=""
+                     class="brd"
+              />
+            </div>
+
+
+            <div class="mb-3">
+              <label cLabel for="price">Price</label>
+              <input cFormControl
+
+                     id="price"
+                     type="text"
+                     formControlName="price"
+                     name="price"
+                     placeholder="price"
+                     [valid]="false"
+                     value=""
+                     class="brd"
+              />
+              <small
+                *ngIf='ProductForm.get("price")!.hasError("required") && ProductForm.get("price")!.touched'
+                class='text-danger'>Product price is required</small>
+            </div>
+
+
+            <div class="mb-3">
+              <label (click)="PhotosInput.click()" *ngIf="!isPhotosChoosen"
+                     class="btn btn-success m-3"
+                     color="success"
+              >
+                <i class="cil-paperclip"></i>
+                Choose Photos</label>
+              <small>maximum four photos will be upload</small>
+            </div>
+
+            <div class="mb-3"
+                 style="display:flex; flex-direction: row-reverse; flex-wrap: wrap; justify-content: space-between;">
+
+              <!--                  cencel button after update photo -->
+
+              <label (click)="onCancelPhoto1()" *ngIf="isPhotosChoosen"
+                     [attr.disabled]="isPhotosChoosen ? '' : null"
+                     class="btn btn-warning"
+                     color="danger"
+                     color="primary"
+                     mat-raised-button
+                     type="submit"
+              >
+                <i class="cil-x-circle"></i>
+                Cancel
+              </label>
+              <input
+                #PhotosInput
+                (change)="onChangePhoto1(PhotosInput.files)"
+                class="file-input"
+                id="PhotoInput1"
+                name="file"
+                style="visibility: hidden;
+                position: absolute;"
+                type="file"
+                multiple
+              />
+            </div>
+
+
+          </c-col>
+        </c-row>
+        <c-row>
+          <c-col>
+            <img [src]="photo1Url" alt="Product Photo" height="280"
+                 width="230" *ngIf="photo1Url">
+          </c-col>
+          <c-col>
+            <img [src]="photo2Url" alt="Product Photo" height="280"
+                 width="230" *ngIf="photo2Url">
+          </c-col>
+          <c-col>
+            <img [src]="photo3Url" alt="Product Photo" height="280"
+                 width="230" *ngIf="photo3Url">
+          </c-col>
+          <c-col>
+            <img [src]="photo4Url" alt="Product Photo" height="280"
+                 width="230" *ngIf="photo4Url">
+          </c-col>
+
+        </c-row>
+
+
+        <div class="float-end mt-5">
+          <button
+            cButton
+            color="info"
+            type="submit"
+          >Add Product
+          </button>
+
+        </div>
+
+      </form>
+      <!-- <small class="text-danger">create account</small> -->
+    </c-card>
+
+
+  </c-col>
+</c-row>
+
+

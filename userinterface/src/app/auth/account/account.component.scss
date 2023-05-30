@@ -1,0 +1,60 @@
+img {
+  height: 12rem;
+  width: unset;
+  border: 1px solid var(--cui-gray);
+}
+
+
+a {
+  color: black;
+}
+
+a:active {
+  background-color: black;
+  color: white;
+  font-weight: bold;
+}
+
+
+.headertext {
+  font: 400 calc(14px * 0.83)/20px Roboto, "Helvetica Neue", sans-serif;
+  margin: 1rem 0 !important;
+  color: var(--cui-gray);
+  //border-bottom: 1px solid var(--cui-gray);
+  font-size: 1.5rem !important;
+  padding: 1.5rem;
+}
+
+.order_img {
+  width: 4rem;
+  height: 4rem;
+}
+
+.img-container {
+  position: relative;
+  //height: 255px;
+  //width: 275px;
+  text-align: center;
+  margin: auto;
+  display: block;
+
+}
+
+//.img-container img {
+//  display: block;
+//
+//}
+.imgblox {
+  margin-top: 2rem;
+}
+
+.img-container .image_change_icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}

@@ -1,0 +1,148 @@
+<c-container>
+  <c-row>
+    <h5 class="m-5 headertext text-decoration-underline">Make order</h5>
+  </c-row>
+
+  <mat-stepper #stepper>
+
+    <!--    products confirmation -->
+    <mat-step>
+
+      <c-row>
+        <ng-template matStepLabel> Confirm items</ng-template>
+
+        <!--        product list -->
+        <ul cListGroup [flush]="false" *ngFor="let item of carts; let index=index">
+          <li cListGroupItem>
+            <c-row>
+              <!-- name  -->
+              <c-col xs="auto">
+                <img cCardImg="top" [src]="item.product_img">
+              </c-col>
+              <!-- details  -->
+              <c-col>
+                <small class="float-start">
+                  {{item.product_name}}
+                </small>
+              </c-col>
+
+              <!-- price  -->
+
+              <c-col>
+                <small> ৳{{item.product_price / item.quantity}} * {{ item.quantity}}</small>
+              </c-col>
+              <!-- quantity  -->
+              <c-col>
+                <small class="float-end">৳{{item.product_price}}</small>
+              </c-col>
+            </c-row>
+          </li>
+
+        </ul>
+
+
+        <ul cListGroup [flush]="true" class="align-self-end">
+          <li cListGroupItem class="align-self-end">
+            <p> Total = {{price}} ৳</p>
+          </li>
+
+        </ul>
+        <hr>
+
+        <c-row class="align-content-end">
+          <c-col>
+            <div class="float-end">
+              <button mat-raised-button matStepperNext>Next</button>
+            </div>
+          </c-col>
+
+        </c-row>
+
+
+      </c-row>
+
+    </mat-step>
+
+    <!--    addres step -->
+
+    <mat-step [stepControl]="addresform" errorMessage="Address is required.">
+
+      <c-row>
+
+        <form [formGroup]="addresform">
+          <ng-template matStepLabel>Confirm Phone & Address</ng-template>
+          <mat-form-field appearance="fill">
+            <mat-label>Phone</mat-label>
+            <input matInput formControlName="phone"
+                   required>
+          </mat-form-field>
+          <br>
+
+          <!--          <mat-form-field appearance="fill">-->
+          <!--            <mat-label>Address</mat-label>-->
+          <!--            <input matInput formControlName="address"-->
+          <!--                   required>-->
+          <!--          </mat-form-field>-->
+
+          <mat-form-field appearance="fill">
+            <mat-label>Address</mat-label>
+            <textarea matInput formControlName="address" rows="5"
+                      required></textarea>
+          </mat-form-field>
+
+
+          <c-row class="align-content-end">
+            <c-col>
+              <div class="float-end">
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+            </c-col>
+
+          </c-row>
+        </form>
+
+      </c-row>
+    </mat-step>
+
+    <!--    payment section -->
+    <mat-step [stepControl]="paymentform" errorMessage="payment method is required">
+      <c-row>
+
+
+        <form [formGroup]="paymentform">
+          <ng-template matStepLabel>Done</ng-template>
+          <mat-form-field appearance="fill">
+            <mat-label>Select Payment</mat-label>
+            <mat-select
+              matInput
+              [ngModel]
+              pay="pay"
+
+              formControlName="pay">
+              <mat-option value="chash_on_delivery">Chash on Delivery</mat-option>
+              <mat-option [disabled]="true" value="bkash">Bkash</mat-option>
+              <mat-option [disabled]="true" value="bkash">Rocket</mat-option>
+              <mat-option [disabled]="true" value="bkash">Card</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <c-row class="align-content-end">
+            <c-col>
+              <div class="float-end">
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="Onsubmit()" [disabled]="paymentform.invalid || addresform.invalid">Done
+                </button>
+              </div>
+            </c-col>
+
+          </c-row>
+
+        </form>
+
+      </c-row>
+
+
+    </mat-step>
+  </mat-stepper>
+
+</c-container>

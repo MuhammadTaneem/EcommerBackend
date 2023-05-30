@@ -1,0 +1,490 @@
+<c-container>
+  <c-row>
+    <c-col class="text-center mt-5 align-self-center">
+
+      <c-card class="mb-3">
+
+        <ng-template [ngIf]="user.is_staff || user.is_superuser">
+          <p class="text-end">
+            <button cButton color="dark" variant="outline" [routerLink]="['/admin' ]">Admin panel</button>
+          </p>
+        </ng-template>
+
+        <div class="imgblox img-container">
+          <mat-icon class="gui-mat-icon image_change_icon" color="accent"
+                    (click)="edit_Photo_Dialog(editProfilePhotoContent)">photo_camera
+          </mat-icon>
+          <img [src]="user.image" alt="Player's Profile Photo">
+        </div>
+        <c-card-body>
+          <h5 cCardTitle>{{user.first_name}} {{user.last_name}}</h5>
+          <p cCardText>
+            Email: {{user.email}}
+            <button class="btn btn-default shadow-none">
+              <mat-icon class="gui-mat-icon" color="accent" (click)="edit_email_Dialog(editUserEmailDialogContent)">
+                edit
+              </mat-icon>
+            </button>
+          </p>
+
+        </c-card-body>
+      </c-card>
+
+
+    </c-col>
+  </c-row>
+
+
+  <c-row>
+    <c-col>
+
+      <c-card class="text-capitalize fw-medium">
+
+        <c-nav variant="tabs">
+          <a [active]="true" [cTabContent]="tabContent" [tabPaneIdx]="0" cNavLink> Profile</a>
+          <a [cTabContent]="tabContent" [tabPaneIdx]="1" cNavLink>My Orders </a>
+          <a [cTabContent]="tabContent" [routerLink]="['/auth/change-password/' ]" [tabPaneIdx]="2" cNavLink>Change
+            password</a>
+        </c-nav>
+        <c-tab-content #tabContent="cTabContent">
+          <c-tab-pane class="p-3">
+
+            <div class="bgc">
+              <!--              <button cButton color="dark" variant="outline" class="float-end">Edit profile</button>-->
+
+              <br>
+
+              <button class="btn btn-default shadow-none float-end">
+                <mat-icon class="gui-mat-icon" color="accent" (click)="edit_user_Dialog(editUserDialogContent)">
+                  edit
+                </mat-icon>
+              </button>
+            </div>
+
+
+            <table borderless cTable hover>
+              <tbody>
+
+
+              <tr>
+                <td>Gender</td>
+                <td>: {{user.gender}}</td>
+              </tr>
+
+
+              <tr>
+                <td>Phone</td>
+                <td>: {{user.phone}}</td>
+              </tr>
+
+              <tr>
+                <td>Date of Birth &nbsp; &nbsp;</td>
+                <td>: {{user.date_of_birth}}</td>
+              </tr>
+
+              <tr>
+                <td>City</td>
+                <td>: {{user.city}}</td>
+              </tr>
+
+              <tr>
+                <td>Zipcode</td>
+                <td>: {{user.zipcode}}</td>
+              </tr>
+
+
+              <tr>
+                <td>Address</td>
+                <td>: {{user.address}}</td>
+              </tr>
+
+
+              </tbody>
+            </table>
+
+
+          </c-tab-pane>
+          <c-tab-pane class="p-3">
+            <ul cListGroup [flush]="false">
+              <li cListGroupItem>
+                <c-row>
+                  <!-- name  -->
+                  <c-col xs="auto">
+                    <small>Picture</small>
+                  </c-col>
+                  <!-- details  -->
+                  <c-col>
+                    <small class="float-start">
+                      Name
+                    </small>
+                  </c-col>
+
+                  <!-- price  -->
+
+                  <c-col>
+                    <small> Quantity </small>
+                  </c-col>
+                  <!-- quantity  -->
+                  <c-col>
+                    <small class="float-end"> Price </small>
+                  </c-col>
+                </c-row>
+              </li>
+
+            </ul>
+            <ul cListGroup [flush]="false" *ngFor="let item of orders; let index=index">
+              <li cListGroupItem>
+                <c-row>
+                  <!-- name  -->
+                  <c-col xs="auto">
+                    <img class="order_img" cCardImg="top" [src]="item.product_img">
+                  </c-col>
+                  <!-- details  -->
+                  <c-col>
+                    <small class="float-start">
+                      {{item.product_name}}
+                    </small>
+                  </c-col>
+
+                  <!-- price  -->
+
+                  <c-col>
+                    <small> {{ item.quantity}} </small>
+                  </c-col>
+                  <!-- quantity  -->
+                  <c-col>
+                    <small class="float-end">৳{{item.bill}}</small>
+                  </c-col>
+                </c-row>
+              </li>
+
+            </ul>
+          </c-tab-pane>
+          <c-tab-pane class="p-3">
+            <c-container>
+              change password
+            </c-container>
+          </c-tab-pane>
+        </c-tab-content>
+
+      </c-card>
+
+    </c-col>
+  </c-row>
+
+  <!--================================================== profile photo edit =================-->
+
+  <ng-template #editProfilePhotoContent let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title ">Update Profile Photo</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"
+              tabindex="-1"></button>
+    </div>
+    <div class="modal-body">
+      <div class="attachment_container">
+        <c-row class="align-content-end">
+          <c-col class="align-self-center">
+            <c-row class="mb-3">
+
+              <!--              profile photo column-->
+              <c-col>
+
+
+                <!--                profile photo display field -->
+                <div class="d-block p-3 mb-1" style="border: 1px solid #E8E8E8">
+                  <img [src]="ProfilePhotoUrl" alt="Player's Profile Photo" class="d-block m-auto" height="280"
+                       width="230">
+                </div>
+
+                <!--                chose file button -->
+                <label (click)="ProfilePhotoInput.click()" *ngIf="!isProfilePhotoChoosen"
+                       class="btn btn-success float-end mt-3"
+                       color="success"
+                >
+                  <i class="cil-paperclip"></i>
+                  Choose file</label>
+                <button *ngIf="isUploadingProfilePhoto" class="btn btn-info m-1" disabled>
+                  <c-spinner aria-hidden="true" size="sm"></c-spinner>
+                  {{ProfilePhotoUploadinfoMessage}}
+                </button>
+                <div
+                  style="display:flex; flex-direction: row-reverse; flex-wrap: wrap; justify-content: space-between;">
+
+                  <!--                  cencel button after update photo -->
+
+                  <label (click)="onCancelProfilePhoto()" *ngIf="isProfilePhotoChoosen"
+                         [attr.disabled]="isUploadingProfilePhoto ? '' : null"
+                         class="btn btn-warning"
+                         color="danger"
+                         color="primary"
+                         mat-raised-button
+                         type="submit"
+                  >
+                    <i class="cil-x-circle"></i>
+                    Cancel
+                  </label>
+                  <label (click)="onProfilePhotoUpload(modal)" *ngIf="isProfilePhotoChoosen"
+                         [attr.disabled]="isUploadingProfilePhoto ? '' : null"
+                         class="btn btn-success"
+                         color="primary"
+                         color="primary"
+                         mat-raised-button
+                         type="submit">
+                    <i class="cil-cloud-upload"></i>
+                    Upload
+                  </label>
+                </div>
+
+                <!--                profile photo input filed-->
+
+                <input
+                  #ProfilePhotoInput
+                  (change)="onChangeProfilePhoto(ProfilePhotoInput.files)"
+                  class="file-input"
+                  id="ProfilePhotoInput"
+                  name="file"
+                  style="visibility: hidden; position: absolute;"
+                  type="file"
+                />
+                <span *ngIf="ProfilePhotoUploadErrorMessage"
+                      class="error-label">{{ProfilePhotoUploadErrorMessage}}</span>
+                <span class="d-block text-info" style="font-size: .9rem">Photo must be have 230px * 280px </span>
+
+              </c-col>
+            </c-row>
+          </c-col>
+        </c-row>
+      </div>
+    </div>
+    <!--    <div class="modal-footer">-->
+    <!--      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>-->
+    <!--      <button type="button" class="btn btn-primary" (click)="on_update_player_address()"><i class="cil-pencil" style="margin-right:5px"></i>Update</button>-->
+    <!--    </div>-->
+  </ng-template>
+
+  <ng-template #editUserDialogContent let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Update Personal Information</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"
+              tabindex="-1"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="userForm" validated cForm class="row g-3" validated>
+        <c-row>
+          <c-col [md]="6">
+            <div class="mb-3">
+              <label cLabel for="first_name" class="text-dark">First name</label>
+              <input cFormControl
+
+                     id="first_name"
+                     type="text"
+                     formControlName="first_name"
+                     name="first_name"
+                     placeholder="Your First name"
+                     [valid]="false"
+                     value=""
+                     class="brd"
+              />
+              <small
+                *ngIf='userForm.get("first_name")!.hasError("required") && userForm.get("first_name")!.touched'
+                class='text-danger'>First name is required</small>
+            </div>
+
+            <div class="mb-3">
+              <label cLabel for="last_name" class="text-dark">Last name</label>
+              <input cFormControl
+
+                     id="last_name"
+                     type="text"
+                     formControlName="last_name"
+                     name="last_name"
+                     placeholder="Your Last name"
+                     [valid]="false"
+                     value=""
+                     class="brd"
+              />
+              <small
+                *ngIf='userForm.get("last_name")!.hasError("required") && userForm.get("last_name")!.touched'
+                class='text-danger'>Last name is required</small>
+            </div>
+
+
+            <div class="mb-3">
+              <label cLabel for="phone" class="text-dark">Phone number</label>
+              <input cFormControl
+
+                     id="phone"
+                     type="number"
+                     formControlName="phone"
+                     name="phone"
+                     placeholder="Your phone number"
+                     [valid]="false"
+                     value=""
+                     class="brd"
+              />
+              <small *ngIf='userForm.get("phone")!.hasError("required") && userForm.get("phone")!.touched'
+                     class='text-danger'>Phone number is required</small>
+            </div>
+
+            <div class="mb-3">
+              <label cLabel for="date_of_birth" class="text-dark">Date of birth</label>
+              <input cFormControl
+
+                     id="date_of_birth"
+                     type="date"
+                     formControlName="date_of_birth"
+                     name="date_of_birth"
+                     placeholder="Your Birth Day"
+                     [valid]="false"
+                     value=""
+                     class="brd"
+              />
+              <small
+                *ngIf='userForm.get("date_of_birth")!.hasError("required") && userForm.get("date_of_birth")!.touched'
+                class='text-danger'> Birth date is required</small>
+            </div>
+
+          </c-col>
+
+
+          <c-col [md]="6">
+
+            <div class="mb-3">
+              <label cLabel for="gender" class="text-dark">Gender</label>
+              <select aria-label="Gender"
+                      cSelect cFormControl
+                      id="gender"
+                      formControlName="gender"
+                      name="gender"
+                      class="brd"
+              >
+                <option value="male"> Male</option>
+                <option value="female"> Female</option>
+              </select>
+
+              <small *ngIf='userForm.get("gender")!.hasError("required") && userForm.get("gender")!.touched'
+                     class='text-danger'>Gender is required</small>
+            </div>
+
+
+            <div class="mb-3">
+              <label cLabel for="city" class="text-dark">City</label>
+              <input cFormControl
+
+                     id="city"
+                     type="text"
+                     formControlName="city"
+                     name="city"
+                     placeholder="Your Current City"
+                     [valid]="false"
+                     value=""
+                     class="brd"
+              />
+              <small *ngIf='userForm.get("city")!.hasError("required") && userForm.get("city")!.touched'
+                     class='text-danger'>City is required</small>
+            </div>
+            <div class="mb-3">
+              <label cLabel for="address" class="text-dark"> Zipcode</label>
+              <input cFormControl
+
+                     id="zipcode"
+                     type="text"
+                     formControlName="zipcode"
+                     name="zipcode"
+                     placeholder="Your Zipcode"
+                     [valid]="false"
+                     value=""
+                     class="brd"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label cLabel for="address" class="text-dark"> Address</label>
+              <input cFormControl
+
+                     id="address"
+                     type="text"
+                     formControlName="address"
+                     name="address"
+                     placeholder="Your Full Address"
+                     [valid]="false"
+                     value=""
+                     class="brd"
+              />
+              <small *ngIf='userForm.get("address")!.hasError("required") && userForm.get("address")!.touched'
+                     class='text-danger'> Address is required</small>
+            </div>
+
+
+          </c-col>
+        </c-row>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+      <button type="button" class="btn btn-primary" (click)="on_update_user(modal)"><i class="cil-pencil"
+                                                                                       style="margin-right:5px"></i>Update
+      </button>
+    </div>
+  </ng-template>
+
+
+  <ng-template #editUserEmailDialogContent let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Update Email</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"
+              tabindex="-1"></button>
+    </div>
+    <div class="modal-body">
+
+      <div class="mb-3">
+        <label cLabel for="email" class="text-dark">Email address</label>
+        <input cFormControl
+               #emailFiled
+               id="email"
+               type="email"
+               name="email"
+               [value]="email"
+               placeholder="Your Email"
+               [valid]="false"
+               class="brd"
+        />
+
+
+        <div>
+          <label cLabel for="password" class="text-dark">Password</label>
+          <c-input-group class="mb-3 ">
+
+            <input cFormControl
+                   #password
+                   id="password"
+                   [type]="hide ? 'password' : 'text'"
+
+                   name="password"
+                   placeholder="Enter  password "
+                   class="">
+
+            <button type="button" mat-icon-button matSuffix (click)="hide = !hide" cInputGroupText>
+              <fa-icon [icon]="pass"></fa-icon>
+            </button>
+          </c-input-group>
+          <small class="text-danger" [routerLink]="['/auth/forget-password/' ]">forget password?</small>
+        </div>
+
+
+      </div>
+
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+      <button type="button" class="btn btn-primary"
+              (click)="on_update_user_email(emailFiled.value,password.value, modal)"><i
+        class="cil-pencil"
+        style="margin-right:5px"></i>Update
+      </button>
+    </div>
+  </ng-template>
+</c-container>
+
+

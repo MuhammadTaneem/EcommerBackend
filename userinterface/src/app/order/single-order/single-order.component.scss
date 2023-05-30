@@ -1,0 +1,46 @@
+.mat-form-field {
+  margin-top: 16px;
+}
+
+::ng-deep .mat-step-header .mat-step-icon-selected, ::ng-deep .mat-step-header .mat-step-icon-state-done, ::ng-deep .mat-step-header .mat-step-icon-state-edit {
+  background-color: black !important;
+  color: #fff;
+}
+
+
+//::ng-deep .mat-step-header .mat-step-icon-selected{
+//  background-color: black;
+//}
+//
+//
+//::ng-deep .mat-step-header .mat-step-icon-state-done{
+//  background-color: black;
+//}
+//
+//::ng-deep .mat-step-header .mat-step-icon-state-edit{
+//  background-color: black;
+//}
+
+button:disabled {
+  background: #636f83;
+}
+
+.headertext {
+  font: 400 calc(14px * 0.83)/20px Roboto, "Helvetica Neue", sans-serif;
+  margin: 1rem 0 !important;
+  color: var(--cui-gray);
+  //border-bottom: 1px solid var(--cui-gray);
+  font-size: 1.5rem !important;
+  padding: 1.5rem;
+}
+
+img {
+  width: 4rem;
+}
+
+
+button {
+  color: white !important;
+  background-color: black;
+  margin-right: 5px;
+}

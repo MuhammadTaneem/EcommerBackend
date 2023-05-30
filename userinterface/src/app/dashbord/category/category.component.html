@@ -1,0 +1,25 @@
+
+
+<c-container>
+  <div class="text-center mt-5" >
+    <h2> Product Category</h2>
+    <p>Get Your Desired Product from Product Category!</p>
+  </div>
+
+  <c-row class="">
+    <c-col *ngFor="let item of navItems" class="mt-5">
+      <c-card
+      (click)="loadData(item.id)"
+      >
+        <div class="text-center" >
+          <img class="imagepadding" src="{{item.cat_img}}">
+        </div>
+        <c-card-body>
+          <p cCardText class="text-center">
+            {{item.name}}
+          </p>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+</c-container>

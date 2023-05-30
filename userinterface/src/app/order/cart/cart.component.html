@@ -1,0 +1,73 @@
+<c-container id="cont" class="mt-5">
+
+
+  <c-card *ngIf="carts">
+    <c-card-header class="mb-3"><h2 class="text-center pt-2">Your cart</h2></c-card-header>
+
+    <h5 *ngIf="carts.length < 1" class="text-center"> no item in your cart</h5>
+
+    <ul cListGroup [flush]="false" *ngFor="let item of carts; let index=index">
+      <li cListGroupItem >
+        <c-row >
+          <!-- name  -->
+          <c-col xs="4" sm="3">
+            <img cCardImg="top" [src]="item.product_img">
+          </c-col>
+          <!-- details  -->
+          <c-col>
+            <p cCardText>
+              {{item.product_name}}
+            </p>
+          </c-col>
+
+          <!-- price  -->
+
+          <c-col md="1" xs="2">
+
+            <p>৳{{item.product_price}}</p>
+
+          </c-col>
+          <!-- quantity  -->
+          <c-col xs="1">
+            <c-row>
+              <button cButton color="link" variant="outline" (click)="incriment(index)" class="mp0">
+                <fa-icon [icon]="plush"></fa-icon>
+              </button>
+              <button cButton color="link" variant="outline" class="mp0">
+                <p class="mp0">{{item.quantity}}</p>
+              </button>
+              <button cButton color="link" variant="outline" (click)="decriment(index)" class="mp0">
+                <fa-icon [icon]="minus"></fa-icon>
+              </button>
+            </c-row>
+          </c-col>
+        </c-row>
+      </li>
+
+    </ul>
+
+    <!-- <c-card-header>Total 1256$</c-card-header> -->
+    <ul cListGroup [flush]="false" class="align-self-end" *ngIf="carts.length>0">
+
+
+      <li cListGroupItem class="align-self-end">
+
+        <h5>Total {{price}} ৳</h5>
+
+
+      </li>
+      <!-- <li class="align-self-end mt-5">
+        <button cButton color="success">Bye now</button>
+      </li> -->
+      <li cListGroupItem class="align-self-end">
+
+        <button mat-button class="float-end buy_now" [routerLink]="['/order']">Place order</button>
+
+      </li>
+
+
+    </ul>
+
+  </c-card>
+
+</c-container>

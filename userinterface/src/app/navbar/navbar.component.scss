@@ -1,0 +1,69 @@
+
+.offcanvas{
+  overflow: scroll;
+  width: auto !important;
+  //--cui-offcanvas-width: ;
+  --cui-offcanvas-height: 100vh;
+  --cui-offcanvas-padding-x: 1rem;
+  --cui-offcanvas-padding-y: 1rem;
+  --cui-offcanvas-color: unset;
+  --cui-offcanvas-bg: #fff;
+  --cui-offcanvas-border-width: 1px;
+  --cui-offcanvas-border-color: var(--cui-border-color-translucent);
+  --cui-offcanvas-box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 21, 0.075);
+}
+
+
+.header{
+    background-color: rgb(5, 5, 7);
+
+
+}
+.brand_img{
+    height: 3rem;
+}
+.white{
+    color: white;
+}
+.black{
+    color: black;
+}
+.stc, .searchboxmini{
+    position: sticky !important;
+    top: 0px;
+    z-index: 1;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .searchbox{
+        display: none;
+    }
+    .minisearchopen{
+        display: flex;
+    }
+}
+@media only screen and (min-width: 599px) {
+    .searchboxmini{
+        display: none;
+    }
+    .minisearchopen{
+        display: none;
+    }
+}
+
+//   .searchboxmini{
+//       position: fixed;
+//       width: 100%;
+//       margin-bottom: 70px;
+//       z-index: 2;
+//   }
+
+.wf{
+    width: 100%;
+
+}
+
+c-offcanvas::-webkit-scrollbar {
+        width: 1em;
+      }

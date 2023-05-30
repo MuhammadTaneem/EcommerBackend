@@ -1,0 +1,247 @@
+<c-container class="width">
+
+  <c-row class="bg-black mt-1" >
+    <div class="d-inline pt-3">
+      <span>
+       Manage Categorises
+     </span>
+      <button  class="btn mat-icon-button shadow-none float-end" (click)="add_category_Dialog(addCategoryContent)">
+        <mat-icon class="gui-mat-icon bg-black "  >add</mat-icon>
+      </button>
+    </div>
+  </c-row>
+
+
+
+  <c-row>
+    <ul cListGroup [flush]="false" >
+      <li cListGroupItem>
+        <c-row>
+
+          <c-col xs="auto">
+            <span>
+              Picture
+            </span>
+          </c-col>
+          <c-col>
+            <span>
+              ID
+            </span>
+          </c-col>
+
+
+          <c-col>
+            <p>
+              Name
+            </p>
+          </c-col>
+
+
+
+          <c-col >
+            <p>
+              Edit
+            </p>
+          </c-col>
+          <c-col>
+            <p>
+              Delete
+            </p>
+          </c-col>
+        </c-row>
+
+      </li>
+    </ul>
+  </c-row>
+  <c-row>
+
+    <ul cListGroup [flush]="false" *ngFor="let item of cat_list; let index=index" class="mt-1">
+      <li cListGroupItem>
+        <c-row>
+          <!-- name  -->
+          <c-col xs="auto" (click)="loadData(item.id)">
+            <img cCardImg="top" class="product_image" [src]="item.cat_img">
+          </c-col>
+
+          <!-- details  -->
+          <c-col>
+            <small class="float-start" (click)="loadData(item.id)">
+              {{item.id}}
+            </small>
+          </c-col>
+
+          <!-- price  -->
+
+          <c-col>
+            <small (click)="loadData(item.id)"> {{ item.name}}</small >
+          </c-col>
+
+          <!-- quantity  -->
+
+          <c-col >
+            <mat-icon class="gui-mat-icon"  (click)="edit_category_Dialog(editCategory, item)" >edit</mat-icon>
+          </c-col>
+
+
+          <c-col >
+            <!--            (click)="deleteProduct(item.id)-->
+            <mat-icon class="gui-mat-icon"   [ngStyle]="{'color':'red'}" (click)="delete_category_Dialog(deleteConfirmation,item.id)" >delete</mat-icon>
+          </c-col>
+        </c-row>
+      </li>
+
+    </ul>
+
+
+  </c-row>
+<!--add template -->
+  <ng-template #addCategoryContent let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title">Add New Category</h5>
+    </div>
+    <div class="modal-body">
+      <div class="mb-3">
+        <label  for="name">Category name</label>
+        <input
+          #name
+          type="text"
+          formControlName="name"
+          name="name"
+          placeholder="Category name"
+          [value]=""
+          class="brd"
+        />
+        <br>
+        <small
+          *ngIf='name.value==""'
+          class='text-danger'>Category name is required</small>
+      </div>
+      <div class="mb-3">
+        <label (click)="PhotosInput.click()" *ngIf="!isPhotosChoosen"
+               class="btn btn-success m-3"
+               color="success"
+        >
+          <i class="cil-paperclip"></i>
+          Change Photo</label>
+      </div>
+
+      <div class="mb-3"
+           style="display:flex; flex-direction: row-reverse; flex-wrap: wrap; justify-content: space-between;">
+
+        <!--                  cencel button after update photo -->
+
+        <label (click)="onCancelPhotoadd()" *ngIf="isPhotosChoosen"
+               [attr.disabled]="isPhotosChoosen ? '' : null"
+               class="btn btn-warning"
+               color="danger"
+               color="primary"
+               mat-raised-button
+               type="submit"
+        >
+          <i class="cil-x-circle"></i>
+          Cancel
+        </label>
+        <input
+          #PhotosInput
+          (change)="onChangePhoto1(PhotosInput.files)"
+          class="file-input"
+          name="file"
+          style="visibility: hidden;
+                position: absolute;"
+          type="file"
+        />
+      </div>
+      <div class="">
+        <img [src]="prductImage1" alt="Category Photo" height="280"
+             width="230" *ngIf="prductImage1">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="add_Cetegory(name.value,modal)"><i class="cil-pencil" style="margin-right:5px"></i>Create</button>
+    </div>
+  </ng-template>
+<!--  edit template-->
+  <ng-template #editCategory let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title">Edit Category</h5>
+    </div>
+    <div class="modal-body">
+      <div class="mb-3">
+        <label  for="name">Category name</label>
+        <input
+               #name
+               id="name"
+               type="text"
+               formControlName="name"
+               name="name"
+               placeholder="Category name"
+               [value]="current_cetegory.name"
+               class="brd w-100"
+        />
+        <small
+          *ngIf='name.value==""'
+          class='text-danger'>Category name is required</small>
+      </div>
+      <div class="mb-3">
+        <label (click)="PhotosInput.click()" *ngIf="!isPhotosChoosen"
+               class="btn btn-success m-3"
+               color="success"
+        >
+          <i class="cil-paperclip"></i>
+          Change Photo</label>
+      </div>
+
+      <div class="mb-3"
+           style="display:flex; flex-direction: row-reverse; flex-wrap: wrap; justify-content: space-between;">
+
+        <!--                  cencel button after update photo -->
+
+        <label (click)="onCancelPhoto1()" *ngIf="isPhotosChoosen"
+               [attr.disabled]="isPhotosChoosen ? '' : null"
+               class="btn btn-warning"
+               color="danger"
+               color="primary"
+               mat-raised-button
+               type="submit"
+        >
+          <i class="cil-x-circle"></i>
+          Cancel
+        </label>
+        <input
+          #PhotosInput
+          (change)="onChangePhoto1(PhotosInput.files)"
+          class="file-input"
+          id="PhotoInput1"
+          name="file"
+          style="visibility: hidden;
+                position: absolute;"
+          type="file"
+        />
+      </div>
+      <div class="">
+        <img [src]="prductImage1" alt="Category Photo" height="280"
+             width="230" *ngIf="prductImage1">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="edit_Cetegory(name.value,modal)"><i class="cil-pencil" style="margin-right:5px"></i>Update</button>
+    </div>
+  </ng-template>
+
+<!--delte temaplate -->
+  <ng-template #deleteConfirmation let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title">Delete Confirmation</h5>
+    </div>
+    <div class="modal-body">
+      <p>do you sure , you wanna delete this product?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="deleteCetegory(modal)"><i class="cil-pencil" style="margin-right:5px"></i>Delete</button>
+    </div>
+  </ng-template>
+
+</c-container>

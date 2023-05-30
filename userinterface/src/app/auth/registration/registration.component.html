@@ -1,0 +1,286 @@
+<c-container>
+    <c-row class="justify-content-center mb-5">
+        <c-col [sm]="10" [lg]="8" class="mg50" >
+            <c-card>
+              <h3 cCardTitle class="text-center mt-5 text-light">Signup Floric</h3>
+                <form [formGroup]="registerFrom"  validated  (ngSubmit)="onSubmit()"  cForm  class="p-5">
+
+                  <c-row>
+                    <c-col [md]="6">
+                      <div  class="mb-3">
+                        <label cLabel for="first_name" class="text-light">First name</label>
+                        <input cFormControl
+
+                               id="first_name"
+                               type="text"
+                               formControlName="first_name"
+                               name="first_name"
+                               placeholder="Your First name"
+                               [valid]="false"
+                               value=""
+                               class="brd"
+                        />
+                        <small *ngIf='registerFrom.get("first_name")!.hasError("required") && registerFrom.get("first_name")!.touched' class='text-danger'>First name is required</small>
+                      </div>
+
+                      <div  class="mb-3">
+                        <label cLabel for="last_name" class="text-light">Last name</label>
+                        <input cFormControl
+
+                               id="last_name"
+                               type="text"
+                               formControlName="last_name"
+                               name="last_name"
+                               placeholder="Your Last name"
+                               [valid]="false"
+                               value=""
+                               class="brd"
+                        />
+                        <small *ngIf='registerFrom.get("last_name")!.hasError("required") && registerFrom.get("last_name")!.touched' class='text-danger'>Last name is required</small>
+                      </div>
+
+                      <div  class="mb-3">
+                        <label cLabel for="email" class="text-light">Email address</label>
+                        <input cFormControl
+
+                               id="email"
+                               type="email"
+                               formControlName="email"
+                               name="email"
+                               placeholder="Your Email"
+                               [valid]="false"
+                               value=""
+                               class="brd"
+                        />
+                        <small *ngIf='registerFrom.get("email")!.hasError("required") && registerFrom.get("email")!.touched' class='text-danger'>Email is required</small>
+                        <small *ngIf='registerFrom.get("email")!.hasError("email") && registerFrom.get("email")!.touched' class='text-danger'>This field must be a valid email</small>
+                      </div>
+
+                      <div  class="mb-3">
+                        <label cLabel for="phone" class="text-light">Phone number</label>
+                        <input cFormControl
+
+                               id="phone"
+                               type="number"
+                               formControlName="phone"
+                               name="phone"
+                               placeholder="Your phone number"
+                               [valid]="false"
+                               value=""
+                               class="brd"
+                        />
+                        <small *ngIf='registerFrom.get("phone")!.hasError("required") && registerFrom.get("phone")!.touched' class='text-danger'>Phone number is required</small>
+                      </div>
+
+                      <div  class="mb-3">
+                        <label cLabel for="date_of_birth" class="text-light">Date of birth</label>
+                        <input cFormControl
+
+                               id="date_of_birth"
+                               type="date"
+                               formControlName="date_of_birth"
+                               name="date_of_birth"
+                               placeholder="Your Birth Day"
+                               [valid]="false"
+                               value=""
+                               class="brd"
+                        />
+                        <small *ngIf='registerFrom.get("date_of_birth")!.hasError("required") && registerFrom.get("date_of_birth")!.touched' class='text-danger'> Birth date is required</small>
+                      </div>
+
+                    </c-col>
+
+
+                    <c-col [md]="6">
+
+                      <div  class="mb-3">
+                        <label cLabel for="gender" class="text-light">Gender</label>
+                        <select aria-label="Gender"
+                                cSelect cFormControl
+                                id="gender"
+                                formControlName="gender"
+                                name="gender"
+                                class="brd"
+                        >
+                          <option  selected  value="male"> Male</option>
+                          <option value="female"> Female</option>
+                        </select>
+
+                        <small *ngIf='registerFrom.get("gender")!.hasError("required") && registerFrom.get("gender")!.touched' class='text-danger'>Gender is required</small>
+                      </div>
+
+
+
+                      <div  class="mb-3">
+                        <label cLabel for="city" class="text-light">City</label>
+                        <input cFormControl
+
+                               id="city"
+                               type="text"
+                               formControlName="city"
+                               name="city"
+                               placeholder="Your Current City"
+                               [valid]="false"
+                               value=""
+                               class="brd"
+                        />
+                        <small *ngIf='registerFrom.get("city")!.hasError("required") && registerFrom.get("city")!.touched' class='text-danger'>City is required</small>
+                      </div>
+                      <div  class="mb-3">
+                        <label cLabel for="address" class="text-light"> Zipcode</label>
+                        <input cFormControl
+
+                               id="zipcode"
+                               type="text"
+                               formControlName="zipcode"
+                               name="zipcode"
+                               placeholder="Your Zipcode"
+                               [valid]="false"
+                               value=""
+                               class="brd"
+                        />
+                      </div>
+
+                      <div  class="mb-3">
+                        <label cLabel for="address" class="text-light"> Address</label>
+                        <input cFormControl
+
+                               id="address"
+                               type="text"
+                               formControlName="address"
+                               name="address"
+                               placeholder="Your Full Address"
+                               [valid]="false"
+                               value=""
+                               class="brd"
+                        />
+                        <small *ngIf='registerFrom.get("address")!.hasError("required") && registerFrom.get("address")!.touched' class='text-danger'> Address is required</small>
+                      </div>
+
+                      <div >
+                        <label cLabel for="password" class="text-light">Password</label>
+                        <c-input-group class="mb-3 ">
+
+                          <input cFormControl
+                                 id = "password"
+                                 [type]="hide ? 'password' : 'text'"
+                                 formControlName="password"
+                                 name="password"
+                                 placeholder="Enter  password "
+                                 class="">
+
+                          <button type="button" mat-icon-button matSuffix (click)="hide = !hide" cInputGroupText>
+                            <fa-icon [icon]="pass"></fa-icon>
+                          </button>
+                        </c-input-group>
+                        <small *ngIf='registerFrom.get("password")!.hasError("required") && registerFrom.get("password")!.touched' class='text-danger'> <br> Password is required</small>
+                        <small *ngIf='registerFrom.get("password")!.hasError("minlength") && registerFrom.get("password")!.touched' class='text-danger'> <br>Password should be minimum 6 character</small>
+                      </div>
+
+
+                    </c-col>
+                  </c-row>
+
+
+                  <div class="float-end mt-5">
+                    <button
+                      cButton
+                      color="info"
+                      type="submit"
+                      (clik)="onSubmit()"
+                    >Submit
+                    </button>
+
+                  </div>
+
+                </form>
+                <div class="">
+                  <button
+                   cButton
+                   color="link"
+                   type="button"
+                   [routerLink]="['/auth/' ]"
+                   >login
+                  </button>
+
+                </div>
+                <!-- <small class="text-danger">create account</small> -->
+            </c-card>
+
+
+
+        </c-col>
+    </c-row>
+</c-container>
+
+
+
+<!-- <c-container class="mt-5">
+  <c-row class="mb-3">
+    <label [sm]="2" cCol cLabel="col" for="staticEmail">
+      Email
+    </label>
+    <c-col [sm]="10">
+      <input cFormControl id="staticEmail" plaintext placeholder="Your Email"  type="text"  />
+    </c-col>
+  </c-row>
+  <c-row class="mb-3">
+    <label cLabel="col" class="col-sm-2" for="inputPassword">
+      Password
+    </label>
+    <c-col [sm]="10">
+      <input cFormControl id="inputPassword" type="password" placeholder="Your server Password" />
+    </c-col>
+  </c-row>
+
+</c-container> -->
+
+
+
+
+
+
+
+
+
+
+                <!-- <form [formGroup]="loginFrom" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+                <mat-form-field class="matCard">
+                  <input
+                    type="email"
+                    matInput
+                    formControlName="email"
+                    name="email"
+                    placeholder="Your Email"
+                  />
+                </mat-form-field>
+
+                <br />
+                <mat-form-field class="matCard">
+                  <input
+                    [type]="hide ? 'password' : 'text'"
+                    matInput
+                    formControlName="password"
+                    name="password1"
+                    placeholder="Enter  password "
+                  />
+                  <button type="button" mat-icon-button matSuffix (click)="hide = !hide">
+                    <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+                  </button>
+                </mat-form-field>
+
+                <br />
+
+                <div class="text-center mt-2">
+                  <button
+                    type="submit"
+                    color="primary"
+                    class=""
+                    mat-raised-button
+                    [disabled]="!loginFrom.valid"
+                    (clik)="onSubmit()"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </form> -->

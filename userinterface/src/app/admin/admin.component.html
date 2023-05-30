@@ -1,0 +1,142 @@
+<c-container>
+
+  <ng-template [ngIf]="!haveAccess">
+    <h3 class="text-center mt-5">
+      you have no permission to access admin panel
+    </h3>
+  </ng-template>
+  <ng-template [ngIf]="haveAccess">
+    <c-row >
+      <c-col>
+
+        <c-card class="text-capitalize fw-medium">
+
+          <c-nav variant="tabs">
+            <a [active]="true" [cTabContent]="tabContent" [tabPaneIdx]="0" cNavLink> All Orders </a>
+            <a [cTabContent]="tabContent" [tabPaneIdx]="1"  cNavLink> Manage Products </a>
+            <!--          <a [cTabContent]="tabContent" [tabPaneIdx]="1" [routerLink]=" '/admin/products' " cNavLink> Manage Products </a>-->
+            <a [cTabContent]="tabContent" [tabPaneIdx]="2" cNavLink> Add Products </a>
+            <a [cTabContent]="tabContent" [tabPaneIdx]="4" cNavLink> Category </a>
+            <a [cTabContent]="tabContent" [tabPaneIdx]="3" cNavLink> User Panel </a>
+          </c-nav>
+          <c-tab-content #tabContent="cTabContent">
+            <c-tab-pane class="p-3">
+              <ul cListGroup [flush]="false">
+                <li cListGroupItem>
+                  <c-row>
+                    <!-- name  -->
+                    <c-col xs="auto">
+                      <small>Picture</small>
+                    </c-col>
+                    <!-- details  -->
+                    <c-col>
+                      <small class="float-start">
+                        Name
+                      </small>
+                    </c-col>
+
+                    <!-- price  -->
+                    <c-col>
+                      <small> Order Id </small>
+                    </c-col>
+
+                    <c-col>
+                      <small> Order Time </small>
+                    </c-col>
+
+                    <c-col>
+                      <small> Quantity </small>
+                    </c-col>
+                    <!-- quantity  -->
+                    <c-col>
+                      <small> Price </small>
+                    </c-col>
+                    <c-col>
+                      <small class="float-end"> Status </small>
+                    </c-col>
+                  </c-row>
+                </li>
+
+              </ul>
+              <ul cListGroup [flush]="false" *ngFor="let item of orders; let index=index" class="mt-1">
+                <li cListGroupItem>
+                  <c-row>
+                    <!-- name  -->
+                    <c-col xs="auto">
+                      <img class="order_img" cCardImg="top" [src]="item.product_img">
+                    </c-col>
+                    <!-- details  -->
+                    <c-col>
+                      <small class="float-start">
+                        {{item.product_name}}
+                      </small>
+                    </c-col>
+
+                    <!-- price  -->
+
+                    <c-col>
+                      <small> {{ item.id}} </small>
+                    </c-col>
+
+                    <c-col>
+                      <small> {{ item.order_time | date}} </small>
+                    </c-col>
+
+                    <c-col>
+                      <small> {{ item.quantity}} </small>
+                    </c-col>
+                    <!-- quantity  -->
+                    <c-col>
+                      <small>৳{{item.bill}}</small>
+                    </c-col>
+                    <c-col>
+                      <!--                    <small class="float-end">{{item.status}}</small>-->
+
+                      <select aria-label="Status"
+                              #status
+                              cSelect
+                              id="status"
+                              name="status"
+                              class="brd"
+                              [value]="item.status"
+                              (change)="onChangeOrder(status.value, item)"
+                      >
+                        <option value="Cancel"> Cancel</option>
+                        <option value="Processing">Processing</option>
+                        <option value="WhereHouse"> WhereHouse</option>
+                        <option value="Deliveryman"> Deliveryman</option>
+                        <option value="Delivered"> Delivered</option>
+                      </select>
+                    </c-col>
+                  </c-row>
+                </li>
+
+              </ul>
+            </c-tab-pane>
+            <c-tab-pane class="p-3">
+              <app-admin-products-list></app-admin-products-list>
+            </c-tab-pane>
+            <c-tab-pane class="p-3">
+              <app-product-add></app-product-add>
+            </c-tab-pane>
+            <c-tab-pane class="p-3">
+              <app-admin-user-list></app-admin-user-list>
+            </c-tab-pane>
+            <c-tab-pane class="p-3">
+              <c-container>
+                <app-category></app-category>
+
+              </c-container>
+            </c-tab-pane>
+          </c-tab-content>
+
+        </c-card>
+
+      </c-col>
+    </c-row>
+
+  </ng-template>
+
+</c-container>
+
+

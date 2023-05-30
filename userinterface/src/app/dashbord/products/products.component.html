@@ -1,0 +1,66 @@
+<div class="" *ngIf="!hideCat">
+
+  <app-category></app-category>
+</div>
+
+
+<c-container class="mt-5">
+    <div class="text-center" *ngIf="products.length>0">
+        <h2>Recomended Products</h2>
+        <p>Check & Get Your Desired Product !</p>
+    </div>
+
+    <div *ngIf="products.length==0" class="text-center">
+      <h3>Search No Result</h3>
+      <p>We're sorry. We cannot find any matches for your search term.
+      </p>
+  </div>
+
+
+
+
+
+    <c-row >
+        <c-col *ngFor="let product of products" class="mt-5 box" [routerLink]="['/dashbord/productdetails/'+product.id ]">
+<!--            <c-card class="mb-3">-->
+<!--              <img cCardImg="top" [src]="product.product_img1">-->
+<!--              <c-card-body class="cardBody">-->
+
+
+<!--                  <p cCardTitle class="lh-sm" cTooltip="{{product.name}}"-->
+<!--                   color="secondary">{{product.name.substring(0,90)}}</p>-->
+
+<!--                <p cCardText class="text-danger fw-semibold align-bottom">-->
+<!--                  <span class="mrw">৳ </span>  {{product.price}}-->
+<!--                </p>-->
+<!--              </c-card-body>-->
+<!--            </c-card>-->
+
+          <mat-card>
+            <img mat-card-image  [src]="product.product_img1">
+            <mat-card-content>
+              <p cCardText class="text-danger fw-semibold">
+                                  <span class="mrw">৳ </span>  {{product.price}}
+              </p>
+              <p  cTooltip="{{product.name}}"
+                 color="secondary">{{product.name.substring(0,40)}}</p>
+
+            </mat-card-content>
+          </mat-card>
+
+
+          </c-col>
+            <mat-paginator
+              *ngIf="length"
+              [length]="length"
+              [pageSize]="pageSize"
+              [pageSizeOptions]="pageSizeOptions"
+              showFirstLastButtons="true"
+              (page)="onChangePage($event)"
+            >
+            </mat-paginator>
+
+    </c-row>
+
+
+</c-container>

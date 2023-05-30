@@ -1,0 +1,2 @@
+id,last_login,is_superuser,is_staff,is_active,date_joined,first_name,last_name,email,password,image,phone,date_of_birth,gender,city,address
+1,2022-05-22 11:47:20+06,TRUE,TRUE,TRUE,2022-05-22 11:40:17+06,nusrat,rita,rita@mail.com,pbkdf2_sha256$260000$p2IzJb0nxb7CXVodg9gKcJ$PKbL4UgnFKaqAQa+1zD5B5XEWEYnvQ7BQxwOLIiLhmw=,images/user/account-avatar-profile.png,0,5-25-2022,male,dhaka,set your address from profile 
